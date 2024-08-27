@@ -26,11 +26,11 @@ export default function App() {
             />
             <Image
               source={images.cards}
-              className="max-w-[380px] w-full h-[300px]"
+              className="max-w-[380px] w-full h-[250px]"
               resizeMode="contain"
             />
 
-            <View className="relative mt-5">
+            <View className="relative mt-0">
               <Text className="text-center text-white text-3xl font-bold">
                 Deiscover Endless Possibilities with{" "}
                 <Text className="text-secondary-200">Aora</Text>
