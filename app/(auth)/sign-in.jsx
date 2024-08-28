@@ -36,7 +36,7 @@ const SignIn = () => {
             <FormField
               title="Email"
               value={form.email}
-              hendleChangeText={(e) =>
+              handleChangeText={(e) =>
                 setForm({
                   ...form,
                   email: e,
@@ -48,7 +48,7 @@ const SignIn = () => {
             <FormField
               title="Password"
               value={form.password}
-              hendleChangeText={(e) =>
+              handleChangeText={(e) =>
                 setForm({
                   ...form,
                   password: e,

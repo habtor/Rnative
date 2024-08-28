@@ -1,14 +1,15 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { images, icons } from "../../constants";
+import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import { useState } from "react";
 import CustomButton from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -19,7 +20,25 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = async () => {
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert("Please fill all fields");
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await createUser(form.email, form.password, form.username);
+
+      // set it to global state
+      router.replace("/home");
+    } catch (error) {
+      console.log(error);
+      Alert.alert(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -37,7 +56,7 @@ const SignUp = () => {
             <FormField
               title="Username"
               value={form.username}
-              hendleChangeText={(e) =>
+              handleChangeText={(e) =>
                 setForm({
                   ...form,
                   username: e,
@@ -49,7 +68,7 @@ const SignUp = () => {
             <FormField
               title="Email"
               value={form.email}
-              hendleChangeText={(e) =>
+              handleChangeText={(e) =>
                 setForm({
                   ...form,
                   email: e,
@@ -61,7 +80,7 @@ const SignUp = () => {
             <FormField
               title="Password"
               value={form.password}
-              hendleChangeText={(e) =>
+              handleChangeText={(e) =>
                 setForm({
                   ...form,
                   password: e,
@@ -70,7 +89,7 @@ const SignUp = () => {
               otherStyles="mt-7"
             />
             <CustomButton
-              title="Sign In"
+              title="Sign Up"
               handlePress={submit}
               containerStyles="mt-7"
               isLoading={isSubmitting}
