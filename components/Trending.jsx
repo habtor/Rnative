@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  View,
   Text,
   FlatList,
   TouchableOpacity,
@@ -15,7 +14,7 @@ const zoomIn = {
     scale: 0.9,
   },
   1: {
-    scale: 1.1,
+    scale: 1.0,
   },
 };
 
